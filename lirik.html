@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful in white X My love</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="vara.min.js"></script>
+</head>
+<body>
+    <audio id="background-audio" src="MyLove.mp3"></audio>
+    <button id="play-audio">Play Audio</button>
+    <div id="container"></div>
+    <a href="" class="hidden"></a>
+    <script>
+        var fontSize = 40;
+        if (window.screen.width > 1200){
+            fontSize = 80;
+        } else if (window.screen.width > 700){
+            fontSize = 55;
+        }
+
+        var vara = new Vara (
+            "#container",
+            "https://raw.githubusercontent.com/akzhy/Vara/master/fonts/Satisfy/SatisfySL.json",
+            [
+                {
+                    text: "And with this ring I",
+                    y: 150,
+                    delay: 500,
+                    fromCurrentPosition: {y:false},
+                    duration: 4000
+                }
+            ],
+            {
+                strokeWidth: 2,
+                color: "#fff",
+                fontSize: fontSize,
+                textAlign: "center"
+            }
+        )
+
+        vara.ready(function(){
+            var erase = true;
+            vara.animationEnd(function(i, o){
+                if(i == "no_erase") erase = false;
+                if(erase){
+                    o.container.style.transition = "opacity 1s 1s";
+                    o.container.style.opacity = 0;
+                }
+            })
+        })
+
+        const audio = document.getElementById("background-audio")
+        const button = document.getElementById("play-audio")
+
+        button.addEventListener('click', () => {
+            audio.play().then(() => {
+                console.log('Audio is playing')
+            }).catch(error => {
+                console.log('audio play failed')
+            })
+        })
+    </script>
+</body>
+</html>
